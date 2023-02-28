@@ -6,4 +6,5 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("Olá, mundooooo !!!")
 
-
+def saudacao(request, nome):
+    return HttpResponse(f"Olá {nome}")
