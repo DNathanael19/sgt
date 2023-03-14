@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Tasks</title>
+    </head>
+    <body>
+        {% extends "tasks/layout.html" %}
+
+        {% block body %}
+            <h1>Add Task:</h1>
+            <form action="{% url 'tasks:add' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit">
+            </form>
+            <a href="{% url 'tasks:index' %}">View Tasks</a>
+
+        <a href="{% url 'tasks:add' %}">Add a New Task</a>
+        {% endblock %}
+    </body>
+</html>
