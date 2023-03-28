@@ -1,17 +1,23 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django import forms
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+
+class NewTaskForm(forms.Form):
+    task = forms.CharField(label="New Task")
 
 
-# Create your views here.
-
-tasks = ["foo", "bar", "baz"]
-
-# Create your views here.
 def index(request):
+
+    # Check if there already exists a "tasks" key in our session
+
+    if "tasks" not in request.session:
+
+        # If not, create a new list
+        request.session["tasks"] = []
+
     return render(request, "tasks/sgt.html", {
-        "tasks": tasks
+        "tasks": request.session["tasks"]
     })
 
 # Add a new task:
@@ -42,8 +48,3 @@ def add(request):
     return render(request, "tasks/add.html", {
         "form": NewTaskForm()
     })
-
-
-
-class NewTaskForm(forms.Form):
-    task = forms.CharField(label="New Task")
